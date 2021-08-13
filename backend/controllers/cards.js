@@ -15,6 +15,7 @@ module.exports.createCard = (req, res, next) => {
   const owner = req.user._id;
   const { name, link } = req.body;
   Card.create({ name, link, owner })
+    .populate(['owner', 'likes'])
     .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -51,6 +52,7 @@ module.exports.deleteCard = (req, res, next) => {
 module.exports.likeCard = (req, res, next) => {
   const { cardId } = req.params;
   Card.findByIdAndUpdate(cardId, { $addToSet: { likes: req.user._id } }, { new: true })
+    .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка не найдена');
@@ -71,6 +73,7 @@ module.exports.likeCard = (req, res, next) => {
 module.exports.dislikeCard = (req, res, next) => {
   const { cardId } = req.params;
   Card.findByIdAndUpdate(cardId, { $pull: { likes: req.user._id } }, { new: true })
+    .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка не найдена');

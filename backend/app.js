@@ -5,7 +5,6 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 
-
 const {
   celebrate, Joi, isCelebrateError,
 } = require('celebrate');
@@ -14,7 +13,7 @@ const cardsRouter = require('./routes/cards');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const allowedCors = require('./middlewares/allowedCors');
 
-const { createUser, login } = require('./controllers/users');
+const { createUser, login, logout } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const BadRequestError = require('./errors/bad-request-err');
 const NotFoundError = require('./errors/not-found-err');
@@ -25,7 +24,6 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 1000,
 });
-
 
 const app = express();
 app.use(limiter);
@@ -86,6 +84,7 @@ app.post('/signup', celebrate({
 }), createUser);
 
 app.use(auth);
+app.use('/logout', logout);
 app.use('/users', userRouter);
 app.use('/cards', cardsRouter);
 

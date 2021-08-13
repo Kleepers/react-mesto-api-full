@@ -81,7 +81,7 @@ function App(props) {
 
     function onLogin (pass,mail) {
         auth.onLogin(pass,mail)
-            .then(data => {
+            .then(() => {
                 handleLogStatus(true);
                 props.history.push('/');
                 setHeaderEmail(mail);
@@ -95,10 +95,18 @@ function App(props) {
     }
 
     function handleLogout () {
-        handleLogStatus(false);
-        setHeaderEmail('');
-        localStorage.removeItem('jwt');
-        props.history.push('signin');
+        auth.logout(currentUser._id)
+            .then((res) => {
+                console.log(res);
+                if (res.ok) {
+                    handleLogStatus(false);
+                    setHeaderEmail('');
+                    props.history.push('signin');
+                }
+                else {
+                    console.log('Произошла ошибка при логауте')
+                }
+            })
     }
 
     function checkToken() {
@@ -106,6 +114,7 @@ function App(props) {
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
                     setIsLoggedIn(false);
+                    setHeaderEmail('');
                     props.history.push('/signin');
                 }else{
                     setIsLoggedIn(true);
@@ -185,7 +194,7 @@ function App(props) {
     return (
         <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
-            <Header onLogout={handleLogout} email={headerEmail}/>
+            <Header onLogout={handleLogout}/>
 
             <Switch>
                 <Route path='/sign-in'>

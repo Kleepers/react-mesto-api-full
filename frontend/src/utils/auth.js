@@ -47,7 +47,20 @@ class Auth {
         })
             .then(this.getResponse)
     }
+
+    logout(id) {
+        return fetch(`${this._baseUrl}/logout`, {
+            method: 'DELETE',
+            credentials: 'include',
+            body: JSON.stringify({
+                _id: id
+            })
+        })
+            .then(this.getResponse)
+    }
+
 }
+
 
 const authConfig = {
     baseUrl: 'http://localhost:3030',

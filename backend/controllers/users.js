@@ -28,7 +28,7 @@ module.exports.createUser = (req, res, next) => {
         about: user.about,
         name: user.name,
         avatar: user.avatar,
-        _id: user._id
+        _id: user._id,
       }))
       .catch((err) => {
         if (err.name === 'ValidationError') {
@@ -122,6 +122,11 @@ module.exports.login = (req, res, next) => {
     })
     .catch(() => { throw new UnauthorizedError('Неправильные почта или пароль'); })
     .catch(next);
+};
+
+module.exports.logout = (req, res) => {
+  res.clearCookie('jwt');
+  res.sendStatus(200);
 };
 
 module.exports.getAuthUser = (req, res, next) => {
