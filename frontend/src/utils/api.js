@@ -88,7 +88,7 @@ class Api {
 }
 
 const apiConfig = {
-    baseUrl: 'http://localhost:3030',
+    baseUrl: 'http://api.kleepers.mesto.nomoredomains.club',
     headers: {
         authorization: 'f2168467-af30-4c44-aa31-04a8fed6c871',
         'Content-Type': 'application/json'
