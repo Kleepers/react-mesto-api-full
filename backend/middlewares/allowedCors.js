@@ -1,5 +1,7 @@
 const allowedCors = [
   'http://localhost:3000',
+  'kleepers.mesto.nomoredomains.club',
+  'api.kleepers.mesto.nomoredomains.club'
 ];
 
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
