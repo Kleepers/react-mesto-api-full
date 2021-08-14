@@ -63,7 +63,7 @@ class Auth {
 
 
 const authConfig = {
-    baseUrl: 'api.kleepers.mesto.nomoredomains.club',
+    baseUrl: 'http://localhost:3030',
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
