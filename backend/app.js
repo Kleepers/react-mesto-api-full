@@ -29,6 +29,7 @@ const app = express();
 app.use(limiter);
 app.use(cookieParser());
 app.use(helmet());
+app.use(allowedCors);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,7 +42,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(requestLogger);
 
-app.use(allowedCors);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
