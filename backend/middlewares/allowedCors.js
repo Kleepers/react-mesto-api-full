@@ -1,5 +1,6 @@
 const allowedCors = [
   'http://localhost:3000',
+  'http://localhost:3001',
   'kleepers.mesto.nomoredomains.club',
   'api.kleepers.mesto.nomoredomains.club'
 ];
