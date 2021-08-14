@@ -113,10 +113,11 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: "7d" });
       res
         .cookie('jwt', token, {
           httpOnly: true,
+          expires: new Date(Date.now() + 8 * 3600000)
         })
         .send({ message: 'Логин прошел успешно' });
     })

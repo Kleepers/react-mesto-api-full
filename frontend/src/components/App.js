@@ -182,8 +182,8 @@ function App(props) {
             .catch(err => console.log(`Ошибка: ${err}`))
     }
 
-    function handleAddPlaceSubmit (formData,owner) {
-        api.addNewCard(formData,owner).then((res) => {
+    function handleAddPlaceSubmit (formData) {
+        api.addNewCard(formData).then((res) => {
             setCards([res,...cards]);
             closeAllPopups();
         })

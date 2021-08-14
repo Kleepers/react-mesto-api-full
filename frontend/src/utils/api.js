@@ -44,7 +44,7 @@ class Api {
             .then(this.getResponse)
     }
 
-    addNewCard(formData,owner) {
+    addNewCard(formData) {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             credentials: 'include',
@@ -52,7 +52,6 @@ class Api {
             body: JSON.stringify({
                 name: formData.place,
                 link: formData.image,
-                owner: owner
             })
         })
             .then(this.getResponse)
@@ -82,7 +81,8 @@ class Api {
             credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({
-                avatar:formData.link})
+                avatar:formData.link
+            })
         })
             .then(this.getResponse)
     }
@@ -91,7 +91,6 @@ class Api {
 const apiConfig = {
     baseUrl: 'https://api.kleepers.mesto.nomoredomains.club',
     headers: {
-        authorization: 'f2168467-af30-4c44-aa31-04a8fed6c871',
         'Content-Type': 'application/json'
     }
 };

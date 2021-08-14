@@ -18,6 +18,7 @@ class Auth {
     onRegister(authPass, authMail) {
         return fetch(`${this._baseUrl}/signup`, {
             method: 'POST',
+            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({
                 password: authPass,
@@ -30,6 +31,7 @@ class Auth {
     onLogin (pass,mail) {
         return fetch(`${this._baseUrl}/signin`, {
             method: 'POST',
+            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({
                 password: pass,
@@ -47,13 +49,10 @@ class Auth {
             .then(this.getResponse)
     }
 
-    logout(id) {
+    logout() {
         return fetch(`${this._baseUrl}/logout`, {
             method: 'DELETE',
-            credentials: 'include',
-            body: JSON.stringify({
-                _id: id
-            })
+            credentials: 'include'
         })
             .then(this.getResponse)
     }
