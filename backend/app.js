@@ -11,7 +11,7 @@ const {
 const userRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const allowedCors = require('./middlewares/allowedCors');
+const corsHandler = require('./middlewares/allowedCors');
 
 const { createUser, login, logout } = require('./controllers/users');
 const auth = require('./middlewares/auth');
@@ -29,7 +29,7 @@ const app = express();
 app.use(limiter);
 app.use(cookieParser());
 app.use(helmet());
-app.use(allowedCors);
+app.use(corsHandler);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
