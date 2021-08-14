@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -18,7 +19,7 @@ const auth = require('./middlewares/auth');
 const BadRequestError = require('./errors/bad-request-err');
 const NotFoundError = require('./errors/not-found-err');
 
-const { PORT = 3030 } = process.env;
+const { PORT = 3030, NODE_ENV } = process.env;
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,

@@ -82,7 +82,7 @@ function App(props) {
     function onLogin (pass,mail) {
         auth.onLogin(pass,mail)
             .then((res) => {
-                if (res.message === 'Логин прошел успешно') {
+                if (res.ok) {
                     handleLogStatus(true);
                     props.history.push('/');
                     setHeaderEmail(mail);
