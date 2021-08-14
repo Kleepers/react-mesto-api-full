@@ -25,7 +25,7 @@ export default function AddPlacePopup (props) {
         props.onAddPlace({
             place: name,
             image: link
-        });
+        })
     }
 
     return (

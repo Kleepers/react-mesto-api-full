@@ -30,7 +30,6 @@ class Auth {
     onLogin (pass,mail) {
         return fetch(`${this._baseUrl}/signin`, {
             method: 'POST',
-            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({
                 password: pass,

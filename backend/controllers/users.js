@@ -125,7 +125,7 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.logout = (req, res) => {
-  res.clearCookie('jwt');
+  res.clearCookie('jwt', ).status(200).send({ message: 'Токен удалён' })
   res.sendStatus(200);
 };
 

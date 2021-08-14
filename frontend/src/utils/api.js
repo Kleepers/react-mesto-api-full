@@ -44,14 +44,15 @@ class Api {
             .then(this.getResponse)
     }
 
-    addNewCard(formData) {
+    addNewCard(formData,owner) {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({
                 name: formData.place,
-                link: formData.image
+                link: formData.image,
+                owner: owner
             })
         })
             .then(this.getResponse)

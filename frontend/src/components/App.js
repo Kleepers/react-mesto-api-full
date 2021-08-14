@@ -81,10 +81,12 @@ function App(props) {
 
     function onLogin (pass,mail) {
         auth.onLogin(pass,mail)
-            .then(() => {
-                handleLogStatus(true);
-                props.history.push('/');
-                setHeaderEmail(mail);
+            .then((res) => {
+                if (res.message === 'Логин прошел успешно') {
+                    handleLogStatus(true);
+                    props.history.push('/');
+                    setHeaderEmail(mail);
+                }
             })
             .catch(err => {
                 console.log(err)
@@ -95,29 +97,26 @@ function App(props) {
     }
 
     function handleLogout () {
-        auth.logout(currentUser._id)
+        auth.logout()
             .then((res) => {
-                console.log(res);
                 if (res.ok) {
                     handleLogStatus(false);
                     setHeaderEmail('');
                     props.history.push('signin');
+                    setCurrentUser({name: '', link: '', avatar: ''});
                 }
-                else {
-                    console.log('Произошла ошибка при логауте')
-                }
-            })
-    }
+                })
+            }
 
     function checkToken() {
         auth.getUser()
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
-                    setIsLoggedIn(false);
+                    handleLogStatus(false);
                     setHeaderEmail('');
                     props.history.push('/signin');
                 }else{
-                    setIsLoggedIn(true);
+                    handleLogStatus(true);
                     props.history.push('/');
                 }
             })
@@ -183,8 +182,8 @@ function App(props) {
             .catch(err => console.log(`Ошибка: ${err}`))
     }
 
-    function handleAddPlaceSubmit (formData) {
-        api.addNewCard(formData).then((res) => {
+    function handleAddPlaceSubmit (formData,owner) {
+        api.addNewCard(formData,owner).then((res) => {
             setCards([res,...cards]);
             closeAllPopups();
         })
@@ -225,7 +224,7 @@ function App(props) {
             <InfoTooltip isOpen={isInfoTooltipOpen} isError={isError} onClose={closeAllPopups}/>
         </div>
         </CurrentUserContext.Provider>
-  );
+  )
 }
 
 export default withRouter(App);

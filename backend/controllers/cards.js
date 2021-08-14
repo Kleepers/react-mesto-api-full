@@ -15,7 +15,6 @@ module.exports.createCard = (req, res, next) => {
   const owner = req.user._id;
   const { name, link } = req.body;
   Card.create({ name, link, owner })
-    .populate(['owner', 'likes'])
     .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === 'CastError') {
