@@ -47,7 +47,6 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().email({ tlds: { allow: false } }).messages({
@@ -113,7 +112,6 @@ app.use((err, req, res, next) => {
   });
   next();
 });
-
 
 app.listen(PORT, () => {
 

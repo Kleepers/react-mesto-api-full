@@ -1,17 +1,17 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
+const validator = require('validator');
 const {
   getCards, createCard, deleteCard, likeCard, dislikeCard,
 } = require('../controllers/cards');
-const validator = require('validator');
 
 const validateUrl = (url) => {
-    const result = validator.isURL(url);
-    if (result) {
-        return url;
-    }
-    throw new Error('Неверная ссылка')
-}
+  const result = validator.isURL(url);
+  if (result) {
+    return url;
+  }
+  throw new Error('Неверная ссылка');
+};
 
 router.get('/', getCards);
 
@@ -24,16 +24,16 @@ router.delete('/:cardId', celebrate({
 }), deleteCard);
 
 router.post('/', celebrate({
-    body: Joi.object().keys({
-        name: Joi.string().required().min(2).max(30)
-            .messages({
-                'any.required': 'Поле "name" должно быть заполнено',
-                'string.min': 'Минимальная длина поля "name" - 2',
-                'string.max': 'Максимальная длина поля "name" - 30',
-                'string.empty': 'Поле "name" должно быть заполнено',
-            }),
-        link: Joi.string().required().custom(validateUrl),
-    }),
+  body: Joi.object().keys({
+    name: Joi.string().required().min(2).max(30)
+      .messages({
+        'any.required': 'Поле "name" должно быть заполнено',
+        'string.min': 'Минимальная длина поля "name" - 2',
+        'string.max': 'Максимальная длина поля "name" - 30',
+        'string.empty': 'Поле "name" должно быть заполнено',
+      }),
+    link: Joi.string().required().custom(validateUrl),
+  }),
 }), createCard);
 
 router.put('/:cardId/likes', celebrate({

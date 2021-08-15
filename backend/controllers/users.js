@@ -113,11 +113,11 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: "7d" });
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
       res
         .cookie('jwt', token, {
           httpOnly: true,
-          expires: new Date(Date.now() + 8 * 3600000)
+          expires: new Date(Date.now() + 8 * 3600000),
         })
         .send({ message: 'Логин прошел успешно' });
     })
@@ -126,7 +126,7 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.logout = (req, res) => {
-  res.clearCookie('jwt', ).status(200).send({ message: 'Токен удалён' })
+  res.clearCookie('jwt').status(200).send({ message: 'Токен удалён' });
   res.sendStatus(200);
 };
 

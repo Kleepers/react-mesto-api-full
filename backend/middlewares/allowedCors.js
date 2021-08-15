@@ -4,7 +4,7 @@ const allowedCors = [
   'http://localhost:3000',
   'http://localhost:3001',
   'http://kleepers.mesto.nomoredomains.club',
-  'https://kleepers.mesto.nomoredomains.club'
+  'https://kleepers.mesto.nomoredomains.club',
 ];
 
 module.exports = (req, res, next) => {
@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
     res.header('Access-Control-Allow-Headers', requestHeaders);
     res.status(200).send();
-    return
+    return;
   }
 
   next();
